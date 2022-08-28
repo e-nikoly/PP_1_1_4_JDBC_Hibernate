@@ -14,9 +14,12 @@ import java.util.Properties;
 
 public final class Util {
     // реализуйте настройку соеденения с БД
+    private static final String DRIVER = "com.mysql.cj.jdbc.Driver";
     private static final String URL = "jdbc:mysql://localhost:3306/myDB";
     private static final String USERNAME = "root";
     private static final String PASSWORD = "root";
+    private static final String DIALECT = "org.hibernate.dialect.MySQL5Dialect";
+    private static SessionFactory sessionFactory;
 
     private Util() {
     }
@@ -27,18 +30,17 @@ public final class Util {
             throw new RuntimeException(e);
         }
     }
-    private static SessionFactory sessionFactory;
     public static SessionFactory getSessionFactory() {
         if (sessionFactory == null) {
             try {
                 Configuration configuration = new Configuration();
 
                 Properties settings = new Properties();
-                settings.put(Environment.DRIVER, "com.mysql.cj.jdbc.Driver");
-                settings.put(Environment.URL, "jdbc:mysql://localhost:3306/myDB");
-                settings.put(Environment.USER, "root");
-                settings.put(Environment.PASS, "root");
-                settings.put(Environment.DIALECT, "org.hibernate.dialect.MySQL5Dialect");
+                settings.put(Environment.DRIVER, DRIVER);
+                settings.put(Environment.URL, URL);
+                settings.put(Environment.USER, USERNAME);
+                settings.put(Environment.PASS, PASSWORD);
+                settings.put(Environment.DIALECT, DIALECT);
 
                 settings.put(Environment.SHOW_SQL, "true");
 
